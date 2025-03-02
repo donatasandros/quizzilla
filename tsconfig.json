@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     // Enable latest features
     "lib": ["ESNext", "DOM"],
@@ -22,12 +23,6 @@
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false,
-
-    // Paths
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "noPropertyAccessFromIndexSignature": false
   }
 }

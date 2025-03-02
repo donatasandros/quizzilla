@@ -9,8 +9,9 @@ import * as React from "react";
 
 import type { QueryClient } from "@tanstack/react-query";
 
-import style from "@/app/style.css?url";
-import { seo } from "@/utils/seo";
+import style from "@/web/app/style.css?url";
+import { Toaster } from "@/web/components/ui/sonner";
+import { seo } from "@/web/utils/seo";
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
@@ -81,6 +82,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body suppressHydrationWarning>
         {children}
+        <Toaster richColors />
         <React.Suspense>
           <TanStackRouterDevtools position="bottom-right" />
           <ReactQueryDevtools buttonPosition="bottom-left" />

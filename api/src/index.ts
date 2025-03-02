@@ -1,14 +1,14 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
-import auth from "@/routes/auth";
-import quizzes from "@/routes/quizzes";
+import auth from "@/api/routes/auth";
+import quizzes from "@/api/routes/quizzes";
 import { env } from "@/shared/env";
 
 const app = new Hono().basePath("/api").use(
   "/*",
   cors({
-    origin: "*",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
