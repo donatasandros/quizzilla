@@ -1,10 +1,13 @@
 import { Hono } from "hono";
 
-const app = new Hono().get("/", (c) => {
+import { db } from "@/shared/db";
+import * as table from "@/shared/db/schema";
+
+const app = new Hono().get("/", async (c) => {
+  const data = await db.select().from(table.quiz);
+
   return c.json({
-    data: {
-      message: "Hello Hono!",
-    },
+    data,
   });
 });
 

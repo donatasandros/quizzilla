@@ -1,4 +1,9 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  Outlet,
+  redirect,
+} from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest } from "@tanstack/react-start/server";
 
@@ -36,7 +41,42 @@ function ProtectedLayout() {
 
   return (
     <div>
-      <div className="flex h-16 items-center border-b px-4">
+      <div className="flex h-16 items-center gap-x-6 border-b px-4">
+        <ul className="flex items-center space-x-6">
+          <li>
+            <Link
+              to="/dashboard"
+              activeProps={{
+                className: "text-primary",
+              }}
+              className="hover:text-primary text-muted-foreground text-sm font-medium transition-colors"
+            >
+              Dasboard
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/explore"
+              activeProps={{
+                className: "text-primary",
+              }}
+              className="hover:text-primary text-muted-foreground text-sm font-medium transition-colors"
+            >
+              Explore
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/creator"
+              activeProps={{
+                className: "text-primary",
+              }}
+              className="hover:text-primary text-muted-foreground text-sm font-medium transition-colors"
+            >
+              Create quiz
+            </Link>
+          </li>
+        </ul>
         <div className="ml-auto">
           <UserButton user={user} />
         </div>

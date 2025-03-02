@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [x] Add basic auth
-- [x] Setup route protection
-- [ ] Add quiz list
 - [ ] Add quiz creation
+- [ ] Add quiz update
+- [ ] Add quiz deletion
+- [ ] Make explore page public
