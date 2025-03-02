@@ -1,0 +1,27 @@
+{
+  "name": "quizzilla",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "db:push": "bunx drizzle-kit push",
+    "db:studio": "bunx drizzle-kit studio"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/bun": "latest",
+    "drizzle-kit": "^0.30.5",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.2",
+    "eslint-plugin-import": "^2.31.0",
+    "prettier": "^3.5.2",
+    "typescript-eslint": "^8.25.0"
+  },
+  "dependencies": {
+    "better-auth": "^1.2.1",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.40.0",
+    "drizzle-zod": "^0.7.0",
+    "pg": "^8.13.3",
+    "zod": "^3.24.2"
+  }
+}
