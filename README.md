@@ -2,7 +2,8 @@
 
 ## TODO
 
-- [ ] Add quiz creation
+- [x] Make explore page public
+- [x] Add quiz creation
 - [ ] Add quiz update
 - [ ] Add quiz deletion
-- [ ] Make explore page public
+- [ ] Add ability to delete individual answers

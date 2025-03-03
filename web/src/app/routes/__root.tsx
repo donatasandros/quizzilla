@@ -78,6 +78,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <head>
+        <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script>
         <HeadContent />
       </head>
       <body suppressHydrationWarning>

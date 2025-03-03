@@ -18,6 +18,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as PublicExploreIndexImport } from './routes/_public/explore/index'
 import { Route as ProtectedDashboardIndexImport } from './routes/_protected/dashboard/index'
 import { Route as ProtectedCreatorIndexImport } from './routes/_protected/creator/index'
+import { Route as PublicExploreIdImport } from './routes/_public/explore/$id'
 import { Route as AuthAuthLoginImport } from './routes/_auth/auth/login'
 
 // Create/Update Routes
@@ -59,6 +60,12 @@ const ProtectedCreatorIndexRoute = ProtectedCreatorIndexImport.update({
   id: '/creator/',
   path: '/creator/',
   getParentRoute: () => ProtectedRoute,
+} as any)
+
+const PublicExploreIdRoute = PublicExploreIdImport.update({
+  id: '/explore/$id',
+  path: '/explore/$id',
+  getParentRoute: () => PublicRoute,
 } as any)
 
 const AuthAuthLoginRoute = AuthAuthLoginImport.update({
@@ -105,6 +112,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/login'
       preLoaderRoute: typeof AuthAuthLoginImport
       parentRoute: typeof AuthImport
+    }
+    '/_public/explore/$id': {
+      id: '/_public/explore/$id'
+      path: '/explore/$id'
+      fullPath: '/explore/$id'
+      preLoaderRoute: typeof PublicExploreIdImport
+      parentRoute: typeof PublicImport
     }
     '/_protected/creator/': {
       id: '/_protected/creator/'
@@ -157,10 +171,12 @@ const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
 )
 
 interface PublicRouteChildren {
+  PublicExploreIdRoute: typeof PublicExploreIdRoute
   PublicExploreIndexRoute: typeof PublicExploreIndexRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
+  PublicExploreIdRoute: PublicExploreIdRoute,
   PublicExploreIndexRoute: PublicExploreIndexRoute,
 }
 
@@ -171,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof PublicRouteWithChildren
   '/auth/login': typeof AuthAuthLoginRoute
+  '/explore/$id': typeof PublicExploreIdRoute
   '/creator': typeof ProtectedCreatorIndexRoute
   '/dashboard': typeof ProtectedDashboardIndexRoute
   '/explore': typeof PublicExploreIndexRoute
@@ -180,6 +197,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof PublicRouteWithChildren
   '/auth/login': typeof AuthAuthLoginRoute
+  '/explore/$id': typeof PublicExploreIdRoute
   '/creator': typeof ProtectedCreatorIndexRoute
   '/dashboard': typeof ProtectedDashboardIndexRoute
   '/explore': typeof PublicExploreIndexRoute
@@ -192,6 +210,7 @@ export interface FileRoutesById {
   '/_protected': typeof ProtectedRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
   '/_auth/auth/login': typeof AuthAuthLoginRoute
+  '/_public/explore/$id': typeof PublicExploreIdRoute
   '/_protected/creator/': typeof ProtectedCreatorIndexRoute
   '/_protected/dashboard/': typeof ProtectedDashboardIndexRoute
   '/_public/explore/': typeof PublicExploreIndexRoute
@@ -199,9 +218,23 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/auth/login' | '/creator' | '/dashboard' | '/explore'
+  fullPaths:
+    | '/'
+    | ''
+    | '/auth/login'
+    | '/explore/$id'
+    | '/creator'
+    | '/dashboard'
+    | '/explore'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/auth/login' | '/creator' | '/dashboard' | '/explore'
+  to:
+    | '/'
+    | ''
+    | '/auth/login'
+    | '/explore/$id'
+    | '/creator'
+    | '/dashboard'
+    | '/explore'
   id:
     | '__root__'
     | '/'
@@ -209,6 +242,7 @@ export interface FileRouteTypes {
     | '/_protected'
     | '/_public'
     | '/_auth/auth/login'
+    | '/_public/explore/$id'
     | '/_protected/creator/'
     | '/_protected/dashboard/'
     | '/_public/explore/'
@@ -264,12 +298,17 @@ export const routeTree = rootRoute
     "/_public": {
       "filePath": "_public.tsx",
       "children": [
+        "/_public/explore/$id",
         "/_public/explore/"
       ]
     },
     "/_auth/auth/login": {
       "filePath": "_auth/auth/login.tsx",
       "parent": "/_auth"
+    },
+    "/_public/explore/$id": {
+      "filePath": "_public/explore/$id.tsx",
+      "parent": "/_public"
     },
     "/_protected/creator/": {
       "filePath": "_protected/creator/index.tsx",
