@@ -4,7 +4,7 @@ import { Skeleton } from "@/web/components/ui/skeleton";
 import { useGetQuizzes } from "@/web/features/quizzes/api/use-get-quizzes";
 import { QuizList } from "@/web/features/quizzes/components/quiz-list";
 
-export const Route = createFileRoute("/_protected/explore/")({
+export const Route = createFileRoute("/_public/explore/")({
   component: RouteComponent,
 });
 
