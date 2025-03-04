@@ -18,7 +18,11 @@ const app = new Hono<{
   Variables: HonoVariables;
 }>()
   .get("/", async (c) => {
-    const data = await db.select().from(table.quiz);
+    const data = await db.query.quiz.findMany({
+      with: {
+        question: true,
+      },
+    });
 
     return c.json({
       data,

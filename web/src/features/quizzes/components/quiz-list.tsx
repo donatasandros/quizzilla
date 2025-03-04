@@ -36,33 +36,51 @@ export function QuizList({ quizzes, onDelete }: QuizListProps) {
 
   return (
     <div className="grid grid-cols-3 gap-6">
-      {quizzes.map(({ id, userId, title, createdAt }) => (
-        <Card key={id}>
-          <CardHeader>
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>Created: {createdAt}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {[1, 2, 3].map((_, idx) => (
-                <Badge key={title + idx} variant="secondary">
-                  tag
-                </Badge>
-              ))}
-            </div>
-          </CardContent>
-          <CardFooter className="flex items-center gap-2">
-            <Link to="/" className={buttonVariants({ class: "flex-1" })}>
-              Play
-            </Link>
-            {session?.userId === userId && (
-              <Button variant="destructive" onClick={() => handleDelete(id)}>
-                Delete
-              </Button>
-            )}
-          </CardFooter>
-        </Card>
-      ))}
+      {quizzes.map(
+        ({ id, title, description, question, userId, createdAt }) => (
+          <Card key={id}>
+            <CardHeader>
+              <CardTitle>{title}</CardTitle>
+              <CardDescription>{description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-muted-foreground text-sm">
+                <p>
+                  Questions:{" "}
+                  <span className="font-medium">{question.length}</span>
+                </p>
+                <p>
+                  Created:{" "}
+                  <span className="font-medium">
+                    {new Date(createdAt).toLocaleDateString()}
+                  </span>
+                </p>
+              </div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {[1, 2, 3].map((_, idx) => (
+                  <Badge key={title + idx} variant="secondary">
+                    tag
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+            <CardFooter className="flex items-center gap-2">
+              <Link
+                to="/explore/$id"
+                params={{ id }}
+                className={buttonVariants({ class: "flex-1" })}
+              >
+                Play
+              </Link>
+              {session?.userId === userId && (
+                <Button variant="destructive" onClick={() => handleDelete(id)}>
+                  Delete
+                </Button>
+              )}
+            </CardFooter>
+          </Card>
+        ),
+      )}
     </div>
   );
 }

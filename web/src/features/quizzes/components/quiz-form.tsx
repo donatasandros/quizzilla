@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "@tanstack/react-router";
+import { Trash } from "lucide-react";
 import * as React from "react";
 import {
   Controller,
@@ -95,9 +96,13 @@ function getTextColor(hexColor: string): string {
 function AnswerForm({
   questionIndex,
   answerIndex,
+  removeAnswer,
+  count,
 }: {
   questionIndex: number;
   answerIndex: number;
+  removeAnswer: (index: number) => void;
+  count: number;
 }) {
   const { control, watch, setValue } = useFormContext<FormValues>();
   const answerType = watch(`questions.${questionIndex}.answerType`);
@@ -136,11 +141,19 @@ function AnswerForm({
           />
         )}
       />
-      <Switch
-        checked={isCorrect}
-        onCheckedChange={handleCorrectChange}
-        className="absolute top-2 right-2"
-      />
+      <div className="absolute top-2 right-2 flex items-center gap-2">
+        <Switch checked={isCorrect} onCheckedChange={handleCorrectChange} />
+        {count > 2 && (
+          <Button
+            variant="destructive"
+            size="icon"
+            type="button"
+            onClick={() => removeAnswer(answerIndex)}
+          >
+            <Trash />
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
@@ -155,6 +168,10 @@ function QuestionForm({ index }: { index: number }) {
 
   const addAnswer = () => {
     append({ content: "", isCorrect: false });
+  };
+
+  const removeAnswer = (index: number) => {
+    remove(index);
   };
 
   const backgroundColor =
@@ -202,6 +219,8 @@ function QuestionForm({ index }: { index: number }) {
                   key={answer.id}
                   questionIndex={index}
                   answerIndex={Aindex}
+                  removeAnswer={removeAnswer}
+                  count={fields.length}
                 />
               ))}
             </div>
@@ -316,14 +335,6 @@ function QuestionForm({ index }: { index: number }) {
         <div className="mt-2 flex gap-2">
           <Button variant="default" type="button" onClick={addAnswer}>
             Add answer
-          </Button>
-          <Button
-            variant="destructive"
-            type="button"
-            onClick={() => remove(fields.length - 1)}
-            disabled={fields.length <= 2}
-          >
-            Remove answer
           </Button>
         </div>
       </div>
