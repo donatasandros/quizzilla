@@ -1,10 +1,11 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouteContext } from "@tanstack/react-router";
 import { InferResponseType } from "hono";
 
 import type { client } from "@/api/hc";
+import type { UseMutateFunction } from "@tanstack/react-query";
 
 import { Badge } from "@/web/components/ui/badge";
-import { buttonVariants } from "@/web/components/ui/button";
+import { Button, buttonVariants } from "@/web/components/ui/button";
 import {
   Card,
   CardContent,
@@ -16,12 +17,26 @@ import {
 
 interface QuizListProps {
   quizzes: InferResponseType<typeof client.api.quizzes.$get, 200>["data"];
+  onDelete: UseMutateFunction<
+    { data: { quizId: string } },
+    Error,
+    { id: string },
+    unknown
+  >;
 }
 
-export function QuizList({ quizzes }: QuizListProps) {
+export function QuizList({ quizzes, onDelete }: QuizListProps) {
+  const { session } = useRouteContext({
+    from: "/_public",
+  });
+
+  function handleDelete(id: string) {
+    onDelete({ id });
+  }
+
   return (
     <div className="grid grid-cols-3 gap-6">
-      {quizzes.map(({ id, title, createdAt }) => (
+      {quizzes.map(({ id, userId, title, createdAt }) => (
         <Card key={id}>
           <CardHeader>
             <CardTitle>{title}</CardTitle>
@@ -36,10 +51,15 @@ export function QuizList({ quizzes }: QuizListProps) {
               ))}
             </div>
           </CardContent>
-          <CardFooter>
-            <Link to="/" className={buttonVariants({ class: "w-full" })}>
+          <CardFooter className="flex items-center gap-2">
+            <Link to="/" className={buttonVariants({ class: "flex-1" })}>
               Play
             </Link>
+            {session?.userId === userId && (
+              <Button variant="destructive" onClick={() => handleDelete(id)}>
+                Delete
+              </Button>
+            )}
           </CardFooter>
         </Card>
       ))}

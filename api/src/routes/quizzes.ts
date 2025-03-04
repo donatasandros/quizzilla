@@ -105,6 +105,45 @@ const app = new Hono<{
         200
       );
     }
+  )
+  .delete(
+    "/:id",
+    zValidator(
+      "param",
+      z.object({
+        id: z.string().min(1),
+      })
+    ),
+    async (c) => {
+      const session = c.get("session");
+      const { id } = c.req.param();
+
+      if (!session) {
+        throw new HTTPException(401, { message: "Unauthorized" });
+      }
+
+      const [quiz] = await db
+        .select()
+        .from(table.quiz)
+        .where(eq(table.quiz.id, id));
+
+      if (!quiz) {
+        throw new HTTPException(404, { message: "Quiz not found" });
+      }
+
+      if (quiz.userId !== session.userId) {
+        throw new HTTPException(403, { message: "Unauthorized" });
+      }
+
+      const [data] = await db
+        .delete(table.quiz)
+        .where(eq(table.quiz.id, id))
+        .returning({ quizId: table.quiz.id });
+
+      return c.json({
+        data,
+      });
+    }
   );
 
 export default app;

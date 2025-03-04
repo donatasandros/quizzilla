@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { Skeleton } from "@/web/components/ui/skeleton";
+import { useDeleteQuiz } from "@/web/features/quizzes/api/use-delete-quiz";
 import { useGetQuizzes } from "@/web/features/quizzes/api/use-get-quizzes";
 import { QuizList } from "@/web/features/quizzes/components/quiz-list";
 
@@ -11,6 +12,7 @@ export const Route = createFileRoute("/_public/explore/")({
 function RouteComponent() {
   const quizzesQuery = useGetQuizzes();
   const quizzes = quizzesQuery.data || [];
+  const deleteQuizMutation = useDeleteQuiz();
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
@@ -22,7 +24,7 @@ function RouteComponent() {
           ))}
         </div>
       ) : (
-        <QuizList quizzes={quizzes} />
+        <QuizList quizzes={quizzes} onDelete={deleteQuizMutation.mutate} />
       )}
     </div>
   );

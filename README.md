@@ -6,6 +6,6 @@ Quizzilla is my learning project where I'm building a Kahoot-style quiz app usin
 
 - [x] Make explore page public
 - [x] Add quiz creation
+- [x] Add quiz deletion
 - [ ] Add quiz update
-- [ ] Add quiz deletion
 - [ ] Add ability to delete individual answers
