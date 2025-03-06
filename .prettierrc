@@ -1,0 +1,10 @@
+{
+  "tailwindFunctions": [
+    "cva",
+    "cn"
+  ],
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ],
+  "pluginSearchDirs": false
+}
