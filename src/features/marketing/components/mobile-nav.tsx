@@ -24,14 +24,14 @@ export function MobileNav() {
   return (
     <nav className="fixed z-10 w-full bg-white/80 px-4 py-3 backdrop-blur-lg md:hidden dark:bg-gray-950/80">
       <div className="flex items-center justify-between">
-        <div>
+        <Link href="/">
           <Image
             src="https://placehold.co/139x32/png"
             width={139}
             height={32}
             alt="Quizzilla logo"
           />
-        </div>
+        </Link>
         <div>
           <Drawer open={open} onOpenChange={onOpenChange}>
             <DrawerTrigger asChild>

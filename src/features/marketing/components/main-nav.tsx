@@ -9,14 +9,14 @@ export function MainNav() {
     <nav className="fixed left-1/2 z-10 w-full max-w-[1280px] -translate-x-1/2 px-8 pt-3 max-md:hidden">
       <div className="flex h-16 justify-between rounded-2xl border border-gray-200 bg-white p-3 shadow-xs dark:border-gray-800 dark:bg-gray-950">
         <div className="flex items-center gap-x-8">
-          <div>
+          <Link href="/">
             <Image
               src="https://placehold.co/139x32/png"
               width={139}
               height={32}
               alt="Quizzilla logo"
             />
-          </div>
+          </Link>
           <ul className="flex items-center gap-x-5">
             {navLinks.map(({ id, label, href }) => (
               <li key={id}>
