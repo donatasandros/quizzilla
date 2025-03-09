@@ -3,7 +3,15 @@ import { z } from "zod";
 export const signInSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
-  remember: z.boolean().optional().default(false)
+  remember: z.boolean().optional().default(false),
 });
 
-export type SignInFormData = z.infer<typeof signInSchema>
+export type SignInFormData = z.infer<typeof signInSchema>;
+
+export const signUpSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+export type SignUpFormData = z.infer<typeof signUpSchema>;
