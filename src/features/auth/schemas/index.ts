@@ -21,3 +21,15 @@ export const forgotPasswordSchema = z.object({
 });
 
 export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
+
+export const resetPasswordSchema = z
+  .object({
+    password: z.string().min(8),
+    confirmPassword: z.string().min(8),
+    token: z.string().min(1),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+  });
+
+export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
