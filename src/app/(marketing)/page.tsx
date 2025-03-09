@@ -54,28 +54,28 @@ export default function IndexPage() {
               <div className="rounded-t-[28px] px-1 pt-1 shadow-[inset_0px_0px_4px_2px_rgba(10,13,18,0.03),inset_0px_0px_6px_2px_rgba(10,13,18,0.08)] dark:shadow-[inset_0px_0px_4px_2px_rgba(255,255,255,0.03),inset_0px_0px_6px_2px_rgba(255,255,255,0.08)]">
                 <div className="overflow-hidden rounded-t-3xl border-x-2 border-t-2 border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-900">
                   <Image
-                    src="https://placehold.co/1200x496/png"
+                    src="https://placehold.co/1200x496/png?text=Light+Desktop+Preview"
                     width={1200}
                     height={496}
                     alt="Hero image"
                     className="max-sm:hidden dark:hidden"
                   />
                   <Image
-                    src="https://placehold.co/1200x496/131316/FFF/png"
+                    src="https://placehold.co/1200x496/131316/FFF/png?text=Dark+Desktop+Preview"
                     width={1200}
                     height={496}
                     alt="Hero image"
                     className="hidden max-sm:hidden dark:block"
                   />
                   <Image
-                    src="https://placehold.co/270x580/png"
+                    src="https://placehold.co/270x580/png?text=Light+Mobile+Preview"
                     width={270}
                     height={580}
                     alt="Hero image"
                     className="w-full sm:hidden dark:hidden"
                   />
                   <Image
-                    src="https://placehold.co/270x580/131316/FFF/png"
+                    src="https://placehold.co/270x580/131316/FFF/png?text=Dark+Mobile+Preview"
                     width={270}
                     height={580}
                     alt="Hero image"

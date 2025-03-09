@@ -6,7 +6,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "focus-visible:ring-brand-500 inline-flex items-center justify-center rounded-lg border font-semibold whitespace-nowrap focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none disabled:pointer-events-none dark:focus-visible:ring-offset-gray-950 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "focus-visible:ring-brand-500 dark:focus-visible:ring-brand-400 inline-flex items-center justify-center rounded-lg border font-semibold whitespace-nowrap focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none disabled:pointer-events-none dark:focus-visible:ring-offset-gray-950 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -65,8 +65,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {isLoading && <Loader2Icon className="animate-spin" />}
-        {children}
+        {isLoading ? (
+          <React.Fragment>
+            <Loader2Icon className="animate-spin" />
+            <span className="sr-only">Loading...</span>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>{children}</React.Fragment>
+        )}
       </Comp>
     );
   },

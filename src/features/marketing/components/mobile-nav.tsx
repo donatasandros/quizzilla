@@ -26,7 +26,7 @@ export function MobileNav() {
       <div className="flex items-center justify-between">
         <Link href="/">
           <Image
-            src="https://placehold.co/139x32/png"
+            src="https://placehold.co/139x32/png?text=Logo"
             width={139}
             height={32}
             alt="Quizzilla logo"
@@ -72,7 +72,7 @@ export function MobileNav() {
                   </li>
                   <li>
                     <Link
-                      href="/auth/login"
+                      href="/auth/sign-in"
                       className={buttonVariants({
                         variant: "secondary",
                         size: "lg",
