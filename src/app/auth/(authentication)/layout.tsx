@@ -4,7 +4,7 @@ import * as React from "react";
 import { LinePattern } from "@/components/decorations/line-pattern";
 import { FeatureCarousel } from "@/features/auth/components/feature-carousel";
 
-export default function AuthLayout({
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;

@@ -5,7 +5,7 @@ import * as React from "react";
 import { GridPattern } from "@/components/decorations/grid-pattern";
 import { Button } from "@/components/ui/button";
 
-export default function IndexPage() {
+export default function Page() {
   return (
     <React.Fragment>
       <section className="mx-auto max-w-[1280px] px-4 pt-24 md:px-8">

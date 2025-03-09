@@ -4,7 +4,7 @@ import * as React from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { SignUpForm } from "@/features/auth/components/sign-up-form";
 
-export default function SignUpPage() {
+export default function Page() {
   return (
     <div>
       <div className="mb-8">

@@ -3,7 +3,7 @@ import * as React from "react";
 import { MainNav } from "@/features/marketing/components/main-nav";
 import { MobileNav } from "@/features/marketing/components/mobile-nav";
 
-export default function MarketingLayout({
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
