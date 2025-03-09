@@ -1,5 +1,6 @@
 import { MailIcon } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { createLoader, parseAsString, SearchParams } from "nuqs/server";
 import * as React from "react";
 
@@ -17,6 +18,10 @@ interface PageProps {
 
 export default async function Page({ searchParams }: PageProps) {
   const { email } = await loadSearchParams(searchParams);
+
+  if (!email) {
+    redirect("/auth/forgot-password");
+  }
 
   return (
     <React.Fragment>
