@@ -19,4 +19,9 @@ export const navLinks = [
     label: "Contact",
     href: "/contact",
   },
+  {
+    id: "86a08f64-4ade-4bb4-9fc1-a906e4b74087",
+    label: "Play",
+    href: "/play",
+  },
 ];
