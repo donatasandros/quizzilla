@@ -14,13 +14,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ERROR_MESSAGES } from "@/features/auth/constants";
 import {
   ForgotPasswordFormData,
   forgotPasswordSchema,
 } from "@/features/auth/schemas";
+import { useToast } from "@/hooks/use-toast";
+import { authClient } from "@/lib/auth/client/instance";
 
 export function ForgotPasswordForm() {
   const router = useRouter();
+  const { toast } = useToast();
 
   const form = useForm<ForgotPasswordFormData>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -30,7 +34,23 @@ export function ForgotPasswordForm() {
   });
 
   async function onSubmit(values: ForgotPasswordFormData) {
-    router.push(`/auth/forgot-password/sent?email=${values.email}`);
+    const { error } = await authClient.forgetPassword({
+      ...values,
+      redirectTo: "/auth/reset-password",
+      fetchOptions: {
+        onSuccess: () => {
+          router.push(`/auth/forgot-password/sent?email=${values.email}`);
+        },
+      },
+    });
+
+    if (error) {
+      toast({
+        status: "error",
+        title: "Internal server error",
+        description: ERROR_MESSAGES.INTERNAL_ERROR,
+      });
+    }
   }
 
   return (

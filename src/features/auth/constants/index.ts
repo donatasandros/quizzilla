@@ -1,4 +1,4 @@
-export const features = [
+export const FEATURES = [
   {
     id: "dc5f79d6-6537-4de0-8c44-d94d613de292",
     name: "Introducing Smart Quizzes",
@@ -28,3 +28,16 @@ export const features = [
     image: "https://placehold.co/472x300/png?text=Customizable+Quiz+Themes",
   },
 ];
+
+export const ERROR_MESSAGES = {
+  INVALID_CREDENTIALS:
+    "We couldn't find an account matching those credentials. Double-check and try again.",
+  INTERNAL_ERROR:
+    "Something went wrong on our end. Please try again later. If the issue persists, please contact us.",
+  USER_ALREADY_EXISTS:
+    "An account with this email already exists. Try signing in or use a different email.",
+  INVALID_TOKEN:
+    "This reset link is invalid or has expired. Request a new one and try again.",
+} as const;
+
+export const DEFAULT_SIGN_IN_URL = "/overview";

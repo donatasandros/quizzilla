@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import * as React from "react";
 
 import { LinePattern } from "@/components/decorations/line-pattern";
@@ -14,20 +15,22 @@ export default function Layout({
       <div className="ml-auto flex w-full px-4 pt-12 max-lg:justify-center max-lg:pb-12 lg:max-w-[720px] lg:flex-col lg:items-center lg:px-8">
         <div className="flex w-full max-w-[360px] flex-1 flex-col">
           <div className="mb-6 lg:mb-20">
-            <Image
-              src="https://placehold.co/139x32/png?text=Logo"
-              alt="Quizzilla logo"
-              width={139}
-              height={32}
-              className="max-lg:hidden"
-            />
-            <Image
-              src="https://placehold.co/40x40/png?text=Logo"
-              alt="Quizzilla logo"
-              width={40}
-              height={40}
-              className="lg:hidden"
-            />
+            <Link href="/">
+              <Image
+                src="https://placehold.co/139x32/png?text=Logo"
+                alt="Quizzilla logo"
+                width={139}
+                height={32}
+                className="max-lg:hidden"
+              />
+              <Image
+                src="https://placehold.co/40x40/png?text=Logo"
+                alt="Quizzilla logo"
+                width={40}
+                height={40}
+                className="lg:hidden"
+              />
+            </Link>
           </div>
           {children}
         </div>

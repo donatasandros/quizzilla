@@ -12,7 +12,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { features } from "@/features/auth/config";
+import { FEATURES } from "@/features/auth/constants";
 import { cn } from "@/lib/utils";
 
 export function FeatureCarousel() {
@@ -41,7 +41,7 @@ export function FeatureCarousel() {
       className="z-10 w-full max-w-[472px]"
     >
       <CarouselContent className="mb-12">
-        {features.map(({ id, name, description, image }) => (
+        {FEATURES.map(({ id, name, description, image }) => (
           <CarouselItem key={id}>
             <div>
               <Image

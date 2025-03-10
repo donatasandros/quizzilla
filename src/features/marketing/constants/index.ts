@@ -1,4 +1,4 @@
-export const navLinks = [
+export const NAV_LINKS = [
   {
     id: "9cb1cdca-09c7-41d9-a632-3e9fc7cd9b81",
     label: "Features",

@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ToastProvider } from "@/components/toast-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 
 const inter = Inter({
@@ -34,15 +35,16 @@ export default function RootLayout({
         className={`font-sans ${inter.variable} relative min-h-screen overflow-x-hidden bg-white antialiased dark:bg-gray-950`}
       >
         <ThemeProvider
+          enableSystem
           attribute="class"
           defaultTheme="system"
-          enableSystem
           disableTransitionOnChange
         >
-          <div className="fixed right-2 bottom-2 z-[100]">
+          <div className="fixed bottom-2 left-2 z-[100]">
             <ModeToggle />
           </div>
           <NuqsAdapter>{children}</NuqsAdapter>
+          <ToastProvider />
         </ThemeProvider>
       </body>
     </html>

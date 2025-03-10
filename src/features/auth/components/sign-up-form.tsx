@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SiGithub } from "@icons-pack/react-simple-icons";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -15,9 +16,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DEFAULT_SIGN_IN_URL, ERROR_MESSAGES } from "@/features/auth/constants";
 import { SignUpFormData, signUpSchema } from "@/features/auth/schemas";
+import { useToast } from "@/hooks/use-toast";
+import { authClient } from "@/lib/auth/client/instance";
 
 export function SignUpForm() {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const form = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -28,7 +35,48 @@ export function SignUpForm() {
   });
 
   async function onSubmit(values: SignUpFormData) {
-    console.log(values);
+    const { error } = await authClient.signUp.email({
+      ...values,
+      fetchOptions: {
+        onSuccess: () => {
+          router.push(DEFAULT_SIGN_IN_URL);
+        },
+      },
+    });
+
+    if (error) {
+      switch (error.status) {
+        case 422:
+          toast({
+            status: "error",
+            title: "Authentication error",
+            description: ERROR_MESSAGES.USER_ALREADY_EXISTS,
+          });
+          break;
+        default:
+          toast({
+            status: "error",
+            title: "Internal server error",
+            description: ERROR_MESSAGES.INTERNAL_ERROR,
+          });
+          break;
+      }
+    }
+  }
+
+  async function onOAuthSubmit(provider: "github") {
+    const { error } = await authClient.signIn.social({
+      provider: provider,
+      callbackURL: DEFAULT_SIGN_IN_URL,
+    });
+
+    if (error) {
+      toast({
+        status: "error",
+        title: "Internal server error",
+        description: ERROR_MESSAGES.INTERNAL_ERROR,
+      });
+    }
   }
 
   return (
@@ -100,6 +148,7 @@ export function SignUpForm() {
           </Button>
           <Button
             type="button"
+            onClick={() => onOAuthSubmit("github")}
             disabled={form.formState.isSubmitting}
             variant="secondary"
             className="w-full"

@@ -12,7 +12,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { navLinks } from "@/features/marketing/config";
+import { NAV_LINKS } from "@/features/marketing/constants";
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
@@ -43,7 +43,7 @@ export function MobileNav() {
               <DrawerTitle className="sr-only">Navigation menu</DrawerTitle>
               <div className="flex flex-col gap-4 p-6">
                 <ul className="space-y-0.5">
-                  {navLinks.map(({ id, href, label }) => (
+                  {NAV_LINKS.map(({ id, href, label }) => (
                     <li key={id}>
                       <Link
                         href={href}

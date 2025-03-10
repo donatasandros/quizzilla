@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -16,20 +17,67 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DEFAULT_SIGN_IN_URL, ERROR_MESSAGES } from "@/features/auth/constants";
 import { SignInFormData, signInSchema } from "@/features/auth/schemas";
+import { useToast } from "@/hooks/use-toast";
+import { authClient } from "@/lib/auth/client/instance";
 
 export function SignInForm() {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
       email: "",
       password: "",
-      remember: false,
+      rememberMe: false,
     },
   });
 
   async function onSubmit(values: SignInFormData) {
-    console.log(values);
+    const { error } = await authClient.signIn.email({
+      ...values,
+      fetchOptions: {
+        onSuccess: () => {
+          router.push(DEFAULT_SIGN_IN_URL);
+        },
+      },
+    });
+
+    if (error) {
+      switch (error.status) {
+        case 401:
+          toast({
+            status: "error",
+            title: "Authentication error",
+            description: ERROR_MESSAGES.INVALID_CREDENTIALS,
+          });
+          break;
+        default:
+          toast({
+            status: "error",
+            title: "Internal server error",
+            description: ERROR_MESSAGES.INTERNAL_ERROR,
+          });
+          break;
+      }
+    }
+  }
+
+  async function onOAuthSubmit(provider: "github") {
+    const { error } = await authClient.signIn.social({
+      provider: provider,
+      callbackURL: DEFAULT_SIGN_IN_URL,
+    });
+
+    if (error) {
+      toast({
+        status: "error",
+        title: "Internal server error",
+        description: ERROR_MESSAGES.INTERNAL_ERROR,
+      });
+    }
   }
 
   return (
@@ -70,7 +118,7 @@ export function SignInForm() {
         <div className="flex items-center justify-between gap-x-2">
           <FormField
             control={form.control}
-            name="remember"
+            name="rememberMe"
             render={({ field }) => (
               <FormItem className="flex items-center space-y-0 gap-x-2">
                 <FormControl>
@@ -104,6 +152,7 @@ export function SignInForm() {
           </Button>
           <Button
             type="button"
+            onClick={() => onOAuthSubmit("github")}
             disabled={form.formState.isSubmitting}
             variant="secondary"
             className="w-full"

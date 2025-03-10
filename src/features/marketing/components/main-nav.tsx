@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
-import { navLinks } from "@/features/marketing/config";
+import { NAV_LINKS } from "@/features/marketing/constants";
 
 export function MainNav() {
   return (
@@ -18,7 +18,7 @@ export function MainNav() {
             />
           </Link>
           <ul className="flex items-center gap-x-5">
-            {navLinks.map(({ id, label, href }) => (
+            {NAV_LINKS.map(({ id, label, href }) => (
               <li key={id}>
                 <Link
                   href={href}

@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -13,16 +14,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ERROR_MESSAGES } from "@/features/auth/constants";
 import {
   ResetPasswordFormData,
   resetPasswordSchema,
 } from "@/features/auth/schemas";
+import { useToast } from "@/hooks/use-toast";
+import { authClient } from "@/lib/auth/client/instance";
 
 interface ResetPasswordFormProps {
   token: string;
 }
 
 export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const form = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
@@ -33,7 +40,41 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   });
 
   async function onSubmit(values: ResetPasswordFormData) {
-    console.log(values);
+    const { error } = await authClient.resetPassword({
+      newPassword: values.password,
+      ...values,
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/auth/sign-in");
+
+          toast({
+            status: "success",
+            title: "Password reset successfully",
+            description:
+              "Your password has been updated. You can now sign in with your new password.",
+          });
+        },
+      },
+    });
+
+    if (error) {
+      switch (error.status) {
+        case 400:
+          toast({
+            status: "error",
+            title: "Authentication error",
+            description: ERROR_MESSAGES.INVALID_TOKEN,
+          });
+          break;
+        default:
+          toast({
+            status: "error",
+            title: "Internal server error",
+            description: ERROR_MESSAGES.INTERNAL_ERROR,
+          });
+          break;
+      }
+    }
   }
 
   return (
