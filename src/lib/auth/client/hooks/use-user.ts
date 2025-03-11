@@ -11,7 +11,7 @@ export function useUser() {
           createdAt: data.user.createdAt,
           email: data.user.email,
           name: data.user.name,
-          imageUrl: data.user.image,
+          imageUrl: data.user.image ?? undefined,
           id: data.user.id,
           //   TODO: twoFactorEnabled: boolean
           updatedAt: data.user.updatedAt,

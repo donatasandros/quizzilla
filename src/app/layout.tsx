@@ -6,8 +6,8 @@ import * as React from "react";
 import type { Metadata } from "next";
 
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { ToastProvider } from "@/components/toast-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ToastProvider } from "@/components/providers/toast-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 
 const inter = Inter({
@@ -40,7 +40,7 @@ export default function RootLayout({
           defaultTheme="system"
           disableTransitionOnChange
         >
-          <div className="fixed bottom-2 left-2 z-[100]">
+          <div className="fixed top-2 left-2 z-[100]">
             <ModeToggle />
           </div>
           <NuqsAdapter>{children}</NuqsAdapter>

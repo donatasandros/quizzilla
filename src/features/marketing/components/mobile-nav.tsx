@@ -12,10 +12,13 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { UserButton } from "@/features/auth/components/user-button";
 import { NAV_LINKS } from "@/features/marketing/constants";
+import { useUser } from "@/lib/auth/client";
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
+  const { isSignedIn } = useUser();
 
   const onOpenChange = React.useCallback((open: boolean) => {
     setOpen(open);
@@ -32,7 +35,8 @@ export function MobileNav() {
             alt="Quizzilla logo"
           />
         </Link>
-        <div>
+        <div className="flex items-center gap-x-3">
+          <UserButton />
           <Drawer open={open} onOpenChange={onOpenChange}>
             <DrawerTrigger asChild>
               <Button variant="tertiary" size="icon_md">
@@ -57,32 +61,34 @@ export function MobileNav() {
                     </li>
                   ))}
                 </ul>
-                <ul className="space-y-3">
-                  <li>
-                    <Link
-                      href="/auth/sign-up"
-                      className={buttonVariants({
-                        variant: "primary",
-                        size: "lg",
-                        class: "w-full",
-                      })}
-                    >
-                      Sign up
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/auth/sign-in"
-                      className={buttonVariants({
-                        variant: "secondary",
-                        size: "lg",
-                        class: "w-full",
-                      })}
-                    >
-                      Log in
-                    </Link>
-                  </li>
-                </ul>
+                {!isSignedIn && (
+                  <ul className="space-y-3">
+                    <li>
+                      <Link
+                        href="/auth/sign-up"
+                        className={buttonVariants({
+                          variant: "primary",
+                          size: "lg",
+                          class: "w-full",
+                        })}
+                      >
+                        Sign up
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/auth/sign-in"
+                        className={buttonVariants({
+                          variant: "secondary",
+                          size: "lg",
+                          class: "w-full",
+                        })}
+                      >
+                        Log in
+                      </Link>
+                    </li>
+                  </ul>
+                )}
               </div>
             </DrawerContent>
           </Drawer>

@@ -19,7 +19,7 @@ export async function currentUser() {
     // TODO: banned: boolean,
     createdAt: data.user.createdAt,
     updatedAt: data.user.updatedAt,
-    imageUrl: data.user.image,
+    imageUrl: data.user.image ?? undefined,
     name: data.user.name,
     email: data.user.email,
   };

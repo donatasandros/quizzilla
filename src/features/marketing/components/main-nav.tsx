@@ -2,9 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
+import { UserButton } from "@/features/auth/components/user-button";
 import { NAV_LINKS } from "@/features/marketing/constants";
+import { auth } from "@/lib/auth/server";
 
-export function MainNav() {
+export async function MainNav() {
+  const { userId } = await auth();
+
   return (
     <nav className="fixed left-1/2 z-10 w-full max-w-[1280px] -translate-x-1/2 px-8 pt-3 max-md:hidden">
       <div className="flex h-16 justify-between rounded-2xl border border-gray-200 bg-white p-3 shadow-xs dark:border-gray-800 dark:bg-gray-950">
@@ -30,20 +34,24 @@ export function MainNav() {
             ))}
           </ul>
         </div>
-        <div className="flex items-center gap-x-3">
-          <Link
-            href="/auth/sign-in"
-            className={buttonVariants({ variant: "secondary", size: "md" })}
-          >
-            Log in
-          </Link>
-          <Link
-            href="/auth/sign-up"
-            className={buttonVariants({ variant: "primary", size: "md" })}
-          >
-            Sign up
-          </Link>
-        </div>
+        {userId ? (
+          <UserButton />
+        ) : (
+          <div className="flex items-center gap-x-3">
+            <Link
+              href="/auth/sign-in"
+              className={buttonVariants({ variant: "secondary", size: "md" })}
+            >
+              Log in
+            </Link>
+            <Link
+              href="/auth/sign-up"
+              className={buttonVariants({ variant: "primary", size: "md" })}
+            >
+              Sign up
+            </Link>
+          </div>
+        )}
       </div>
     </nav>
   );
