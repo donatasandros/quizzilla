@@ -22,7 +22,7 @@ export default function Layout({
       <MainNav />
       <SidebarInset>
         <MobileNav />
-        <main className="px-4 py-8 md:p-8">{children}</main>
+        <main className="h-full px-4 py-8 md:p-8">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

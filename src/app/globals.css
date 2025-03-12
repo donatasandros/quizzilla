@@ -64,9 +64,13 @@
     --color-success-800: oklch(42.3% 0.0945 158.65);
     --color-success-900: oklch(37.24% 0.0808 159.87);
     --color-success-950: oklch(28.57% 0.0586 161.78);
+
+    --chart-1: oklch(56.45% 0.1916 293.78);
+    --chart-2: oklch(73.24% 0.1449 299.4);
+    --chart-3: oklch(49.8% 0.1953 291.5);
 }
 
-@layer base {
+@layer theme {
     .dark {
         --color-gray-50: oklch(98.51% 0 0);
         --color-gray-100: oklch(96.74% 0.0013 286.38);
@@ -79,5 +83,9 @@
         --color-gray-800: oklch(27.33% 0.0075 274.68);
         --color-gray-900: oklch(21.95% 0.0077 285.74);
         --color-gray-950: oklch(18.81% 0.006 285.81);
+
+        --chart-1: oklch(73.24% 0.1449 299.4);
+        --chart-2: oklch(56.45% 0.1916 293.78);
+        --chart-3: oklch(83.65% 0.0923 303.74);
     }
 }
