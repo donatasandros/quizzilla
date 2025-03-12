@@ -19,7 +19,11 @@ import { useUser } from "@/lib/auth/client";
 import { authClient } from "@/lib/auth/client/instance";
 import { getInitials } from "@/utils/get-initials";
 
-export function UserButton() {
+interface UserButtonsProps {
+  align?: "start" | "end" | "center";
+}
+
+export function UserButton({ align = "end" }: UserButtonsProps) {
   const router = useRouter();
   const { user, isSignedIn, isLoaded } = useUser();
   const { toast } = useToast();
@@ -56,7 +60,7 @@ export function UserButton() {
           <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" sideOffset={8} className="w-[248px]">
+      <DropdownMenuContent align={align} sideOffset={8} className="w-[248px]">
         <div className="mb-1 flex items-center gap-x-3 border-b border-gray-200 px-4 py-3 dark:border-gray-800">
           <Avatar>
             <AvatarImage src={user.imageUrl} alt={user.name} />

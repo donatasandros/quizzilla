@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import * as React from "react";
 
@@ -27,10 +26,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Script
-        crossOrigin="anonymous"
-        src="//unpkg.com/react-scan/dist/auto.global.js"
-      />
       <body
         className={`font-sans ${inter.variable} relative min-h-screen overflow-x-hidden bg-white antialiased dark:bg-gray-950`}
       >
@@ -40,7 +35,7 @@ export default function RootLayout({
           defaultTheme="system"
           disableTransitionOnChange
         >
-          <div className="fixed top-2 left-2 z-[100]">
+          <div className="fixed right-2 bottom-2 z-[100]">
             <ModeToggle />
           </div>
           <NuqsAdapter>{children}</NuqsAdapter>
