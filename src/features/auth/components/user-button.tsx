@@ -1,6 +1,12 @@
 "use client";
 
-import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
+import {
+  LayoutGridIcon,
+  LogOutIcon,
+  SettingsIcon,
+  UserIcon,
+} from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -85,6 +91,12 @@ export function UserButton({ align = "end" }: UserButtonsProps) {
           <DropdownMenuItem>
             <UserIcon />
             View profile
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/overview">
+              <LayoutGridIcon />
+              Dashboard
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <SettingsIcon />

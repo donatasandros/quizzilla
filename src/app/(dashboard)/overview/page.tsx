@@ -3,7 +3,9 @@ import {
   ArrowUpRightIcon,
   DownloadCloudIcon,
   InfoIcon,
+  PencilLineIcon,
 } from "lucide-react";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -84,6 +86,37 @@ export default function Page() {
                 30%
               </span>
             </div>
+          </div>
+        </div>
+      </section>
+      <section className="flex flex-wrap gap-3 max-md:flex-col md:items-center">
+        <Link
+          href="/"
+          className="flex flex-1 items-center gap-x-3 rounded-xl border border-gray-200 bg-white p-5 shadow-xs dark:border-gray-800 dark:bg-gray-950"
+        >
+          <div className="bg-brand-600 flex size-12 shrink-0 items-center justify-center rounded-[10px] shadow-xs">
+            <PencilLineIcon className="dark:text-brand-200 size-6 text-white" />
+          </div>
+          <div className="space-y-0.5">
+            <p className="font-semibold text-gray-700 dark:text-gray-300">
+              Create a quiz
+            </p>
+            <p className="text-gray-600 md:whitespace-nowrap dark:text-gray-400">
+              Design a new quiz with custom questions and settings.
+            </p>
+          </div>
+        </Link>
+        <div className="flex flex-1 items-center gap-x-3 rounded-xl border border-gray-200 bg-white p-5 shadow-xs dark:border-gray-800 dark:bg-gray-950">
+          <div className="bg-brand-600 flex size-12 shrink-0 items-center justify-center rounded-[10px] shadow-xs">
+            <PencilLineIcon className="dark:text-brand-200 size-6 text-white" />
+          </div>
+          <div className="space-y-0.5">
+            <p className="font-semibold text-gray-700 dark:text-gray-300">
+              Join a quiz
+            </p>
+            <p className="text-gray-600 md:whitespace-nowrap dark:text-gray-400">
+              Enter a quiz code to participate in a quiz.
+            </p>
           </div>
         </div>
       </section>

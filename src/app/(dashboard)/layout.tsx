@@ -20,7 +20,7 @@ export default function Layout({
       }
     >
       <MainNav />
-      <SidebarInset>
+      <SidebarInset className="mx-auto max-w-[1216px]">
         <MobileNav />
         <main className="h-full px-4 py-8 md:p-8">{children}</main>
       </SidebarInset>
